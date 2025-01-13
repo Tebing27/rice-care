@@ -27,7 +27,7 @@ condition: string;
 // Tambahkan utility functions
 const getLocalStorageSize = () => {
   let total = 0;
-  for (let key in localStorage) {
+  for (const key in localStorage) {
     if (localStorage.hasOwnProperty(key)) {
       total += localStorage[key].length * 2;
     }
