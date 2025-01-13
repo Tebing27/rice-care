@@ -151,7 +151,7 @@ const ChatBotIcon = ({ userId }: ChatBotIconProps) => {
   return (
     <div className="fixed bottom-4 right-4 z-50">
       {isOpen && (
-        <div className="absolute bottom-16 right-0 w-96 h-[500px] bg-white rounded-lg shadow-xl border border-gray-200 flex flex-col">
+        <div className="absolute bottom-16 right-0 h-[80vh] md:h-[500px] s:w-96 bg-white rounded-lg shadow-xl border border-gray-200 flex flex-col">
           <div className="p-4 bg-green-400 text-gray-800 rounded-t-lg flex justify-between items-center">
             <h3 className="font-medium">AI Health Assistant</h3>
             <button onClick={() => setIsOpen(false)} className="text-white hover:text-gray-200">
