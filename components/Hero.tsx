@@ -100,7 +100,7 @@ export default function Hero() {
             >
               </motion.div>
               
-                <Link href="/track">
+                <Link href="/dashboard">
                   <Button size="lg" variant="green" className="text-xl px-8 py-4">
                     Tracking Sekarang
                   </Button>

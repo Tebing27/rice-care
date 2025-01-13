@@ -5,6 +5,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { AlignRight , X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { UserButton } from '@clerk/nextjs'
+import { useAuth } from '@clerk/nextjs';
 
 const navItems = [
   { name: 'Beranda', href: '/' },
@@ -13,6 +15,7 @@ const navItems = [
 ]
 
 export default function Header(){
+  const { isSignedIn } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   return (
     <>
@@ -34,9 +37,13 @@ export default function Header(){
               {item.name}
             </Link>
           ))}
+          {isSignedIn ? (
+          <UserButton afterSignOutUrl="/" />
+        ) : (
           <Link href="/sign-in">
-          <Button size="sm" variant="green">Track</Button>
+            <Button size="sm" variant="green">Login</Button>
           </Link>
+        )}
         </div>
         
         <div className="md:hidden ml-auto">
