@@ -14,7 +14,7 @@ const About = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold mb-4">Tentang Rise and Care</h2>
+          <h2 className="text-4xl font-bold mb-4 text-center">Tentang Rise and Care</h2>
           <p className="text-xl text-gray-600">Solusi Modern untuk Pemantauan Kesehatan Anda</p>
         </motion.div>
 

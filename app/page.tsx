@@ -6,7 +6,7 @@ import Service from "@/components/Service";
 
 export default function Home() {
   return (
-    <div>
+    <div className="overflow-x-hidden">
       <Header />
       <Hero/>
       <About/>

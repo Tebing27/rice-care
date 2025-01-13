@@ -76,7 +76,7 @@ export default function Hero() {
             className="w-full lg:w-1/2 lg:pr-8 mt-16 md:mt-0"
           >
             <motion.h1 
-              className="text-3xl md:text-4xl font-bold text-gray-900 sm:text-5xl"
+              className="text-3xl md:text-4xl font-bold text-gray-900 sm:text-5xl pl-4"
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
@@ -85,7 +85,7 @@ export default function Hero() {
               <span className="text-green-500 block mt-2"> #JagaKesehatanAnda</span>
             </motion.h1>
             <motion.p
-              className="mt-4 text-base md:text-lg text-gray-600"
+              className="mt-4 text-base md:text-lg text-gray-600 pl-4"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
@@ -99,12 +99,13 @@ export default function Hero() {
               className="mt-6 md:mt-8"
             >
               </motion.div>
-              
+              <div className="pl-4">
                 <Link href="/dashboard">
                   <Button size="lg" variant="green" className="text-xl px-8 py-4">
                     Tracking Sekarang
                   </Button>
                 </Link>
+              </div>
               
               </motion.div>
           <motion.div
