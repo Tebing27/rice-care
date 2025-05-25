@@ -65,7 +65,7 @@ const CariProdukPage = () => {
                   title="Nilai Gizi Website"
                   className="rounded-lg"
                   allow="accelerometer; camera; encrypted-media; geolocation; gyroscope; microphone; midi; payment; usb"
-                  credentialless="true"
+                  //credentialless="true"
                 />
               </div>
             </Card>
