@@ -102,16 +102,16 @@ const FilterSection = ({
 };
 
 // Tambahkan fungsi untuk memformat data grafik
-const formatChartData = (data: BloodSugarRecord[]) => {
-  return data.map(record => ({
-    time: record.time,
-    value: Number(record.bloodSugar)
-  })).sort((a, b) => {
-    const timeA = new Date(`2000/01/01 ${a.time}`).getTime();
-    const timeB = new Date(`2000/01/01 ${b.time}`).getTime();
-    return timeA - timeB;
-  });
-};
+// const formatChartData = (data: BloodSugarRecord[]) => {
+//   return data.map(record => ({
+//     time: record.time,
+//     value: Number(record.bloodSugar)
+//   })).sort((a, b) => {
+//     const timeA = new Date(`2000/01/01 ${a.time}`).getTime();
+//     const timeB = new Date(`2000/01/01 ${b.time}`).getTime();
+//     return timeA - timeB;
+//   });
+// };
 
 export default function Home() {
 const { user } = useUser();
