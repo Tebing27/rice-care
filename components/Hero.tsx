@@ -8,11 +8,31 @@ import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
 export default function Hero() {
+  const [reducedMotion, setReducedMotion] = useState(false);
+  // Deteksi jika di mobile
+  const [isMobile, setIsMobile] = useState(false);
   const controls = useAnimation();
   const [ref, inView] = useInView();
   const [rotateX, setRotateX] = useState(0);
   const [rotateY, setRotateY] = useState(0);
 
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReducedMotion(mediaQuery.matches);
+  
+    const handler = () => setReducedMotion(mediaQuery.matches);
+    mediaQuery.addEventListener("change", handler);
+  
+    // Deteksi mobile
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+  
+    return () => {
+      mediaQuery.removeEventListener("change", handler);
+      window.removeEventListener("resize", checkMobile);
+    };
+  }, []);
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const element = e.currentTarget;
     const rect = element.getBoundingClientRect();
@@ -108,40 +128,49 @@ export default function Hero() {
               </div>
               
               </motion.div>
-          <motion.div
-            className="mt-8 lg:mt-0 lg:w-1/2 perspective-1000 h-[300px] md:h-[500px]"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1 }}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
+              <motion.div
+  initial={{ opacity: 0 }}
+  animate={
+    reducedMotion || isMobile
+      ? { opacity: 1 }
+      : { opacity: 1, rotateX, rotateY }
+  }
+  transition={{
+    duration: reducedMotion || isMobile ? 0.3 : 1,
+    type: reducedMotion || isMobile ? false : "spring",
+    stiffness: reducedMotion || isMobile ? 0 : 300,
+    damping: reducedMotion || isMobile ? 0 : 30,
+  }}
+  onMouseMove={reducedMotion || isMobile ? undefined : handleMouseMove}
+  onMouseLeave={reducedMotion || isMobile ? undefined : handleMouseLeave}
           >
             <motion.div
-              className="relative w-full h-full"
-              animate={{
-                rotateX,
-                rotateY,
-              }}
-              transition={{
-                type: "spring",
-                stiffness: 300,
-                damping: 30
-              }}
-              style={{
-                transformStyle: "preserve-3d",
-                perspective: "1000px"
-              }}
-            >
-              <Image 
-                src="/images/produk.png"
-                alt="Produk Rise and Care"
-                fill
-                className="object-contain transition-transform duration-300"
-                style={{
-                  backfaceVisibility: "hidden",
-                  transform: `translateZ(50px)`
-                }}
-              />
+        className="relative w-full h-full"
+        animate={
+          reducedMotion || isMobile
+            ? { opacity: 1 }
+            : { rotateX, rotateY, opacity: 1 }
+        }
+        transition={{
+          type: reducedMotion || isMobile ? false : "spring",
+          stiffness: reducedMotion || isMobile ? 0 : 300,
+          damping: reducedMotion || isMobile ? 0 : 30,
+          duration: reducedMotion || isMobile ? 0.3 : 1,
+        }}
+        style={{
+          transformStyle: "preserve-3d",
+          perspective: "1000px",
+        }}
+      >
+        <div className="relative w-[400px] h-[300px]">
+      <Image
+        src="/images/produk.png"
+        alt="Produk Rise and Care"
+        fill
+        sizes="(max-width: 768px) 100vw, 400px"
+        className="object-contain"
+      />
+    </div>
             </motion.div>
           </motion.div>
         </motion.div>

@@ -8,7 +8,8 @@ import { Button } from '@/components/ui/button'
 
 const navItems = [
   { name: 'Dashboard', href: '/dashboard' },
-  { name: 'Beranda', href: '/' },
+  { name: 'Cari Produk', href: '/cari-produk' },
+  { name: 'Beranda', href: '/' }
 ]
 
 export default function Navbar(){

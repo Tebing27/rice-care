@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useMemo, useState, memo } from "react";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -261,7 +261,6 @@ const fetchRecords = useCallback(async () => {
 // Pastikan useEffect dipanggil dengan benar
 useEffect(() => {
   if (user?.id) {
-    console.log("UseEffect triggered, fetching records...");
     fetchRecords();
   }
 }, [fetchRecords, user?.id]);
@@ -269,10 +268,10 @@ useEffect(() => {
 useEffect(() => {
   const delayDebounceFn = setTimeout(() => {
     fetchRecords();
-  }, 500);
+  }, 1000);
 
   return () => clearTimeout(delayDebounceFn);
-}, [fetchRecords, getStatus]);
+},  [searchQuery, dateFilter, conditionFilter, user?.id, fetchRecords]);
 
 // Update handleSubmit untuk merefresh data setelah submit
 const handleSubmit = async (e: React.FormEvent) => {
@@ -390,15 +389,18 @@ if (allRecords.length > 0) {
 }
 }, [allRecords, getStatus]);
 
-// const chartData = allRecords
-//   .filter(record => record.date === new Date().toISOString().split('T')[0])
-//   .map(record => ({
-//     time: record.time,
-//     value: record.bloodSugar
-//   }));
+const chartData = useMemo(() => {
+  return allRecords
+    .filter(record => record.date === dateFilter || !dateFilter)
+    .map(record => ({
+      time: record.time,
+      value: record.bloodSugar,
+    }));
+}, [allRecords, dateFilter]);
+
 
 // Update tampilan statistik dan grafik
-const StatisticsSection = () => (
+const StatisticsSection = memo(() => (
   <>
     <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
       <div className="p-4 bg-gray-50 rounded-lg">
@@ -444,7 +446,7 @@ const StatisticsSection = () => (
         : `Menampilkan statistik dari hasil pencarian (${records.length} catatan)`}
     </div>
   </>
-);
+));
 
 // Fungsi untuk menghapus data
 const handleDelete = async (id: string) => {
