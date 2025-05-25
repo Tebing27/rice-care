@@ -425,7 +425,7 @@ const StatisticsSection = memo(() => (
 
     <div className="h-[300px] mb-6">
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={formatChartData(records)}>
+            <LineChart data={chartData}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="time" />
               <YAxis />
@@ -447,6 +447,7 @@ const StatisticsSection = memo(() => (
     </div>
   </>
 ));
+StatisticsSection.displayName = "StatisticsSection";
 
 // Fungsi untuk menghapus data
 const handleDelete = async (id: string) => {
